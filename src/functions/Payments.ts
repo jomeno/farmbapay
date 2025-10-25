@@ -1,4 +1,5 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import spreadsheet from "../lib/spreadsheet";
 //import { insert } from "../lib/database";
 
 export async function Payments(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
@@ -17,6 +18,10 @@ export async function Payments(request: HttpRequest, context: InvocationContext)
 
   // Inserting into mongo db
   //await insert("paynotifications", doc);
+
+  // Insert into payment notficiation sheet
+  const newValues = [new Date().toISOString(), 'jomeno testing'];
+  spreadsheet.insert("1JUyYCV9cn2icAvSPuLHP-Ju7OEJ5p5p07kAWJPs9x58", "Pay Notifications", newValues);
 
     return { body: `Hello, ${name}!` };
 };

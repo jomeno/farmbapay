@@ -1,7 +1,7 @@
 import { MongoClient, OptionalId } from "mongodb";
 
 async function connect(){
-    const uri = "mongodb+srv://jemnak_db_user:IpbcIRMQFqhc8rh6@cluster0.lrtgcoi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+    const uri = process.env.MONGO_CONN;
 
     // The MongoClient is the object that references the connection to our
     // datastore (Atlas, for example)
