@@ -4,6 +4,8 @@ import spreadsheet from "../lib/spreadsheet";
 
 export async function Payments(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http function processed request for url "${request.url}"`);
+    console.log(`Environemtn variable ${process.env.CLIENT_EMAIL}`);
+    console.log(`Environemtn variable ${process.env.PRIVATE_KEY}`);
 
     const name = request.query.get('name') || await request.text() || 'world';
 
