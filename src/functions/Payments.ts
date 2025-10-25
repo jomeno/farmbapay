@@ -25,7 +25,7 @@ export async function Payments(request: HttpRequest, context: InvocationContext)
   const newValues = [new Date().toISOString(), 'jomeno testing'];
   await spreadsheet.insert("1JUyYCV9cn2icAvSPuLHP-Ju7OEJ5p5p07kAWJPs9x58", "Pay Notifications", newValues);
 
-    return { body: `Hello, ${name}!` };
+    return { body: `Hello, ${process.env.CLIENT_EMAIL}!` };
 };
 
 app.http('Payments', {
