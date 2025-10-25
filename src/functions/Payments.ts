@@ -1,5 +1,5 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
-import { insert } from "../lib/database";
+//import { insert } from "../lib/database";
 
 export async function Payments(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http function processed request for url "${request.url}"`);
@@ -13,8 +13,10 @@ export async function Payments(request: HttpRequest, context: InvocationContext)
       created: new Date().toString()
   };
 
+  console.log('The doc is', doc);
+
   // Inserting into mongo db
-  await insert("paynotifications", doc);
+  //await insert("paynotifications", doc);
 
     return { body: `Hello, ${name}!` };
 };
