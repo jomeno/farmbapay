@@ -18,9 +18,9 @@ export async function Payments(request: HttpRequest, context: InvocationContext)
 
     // Insert into payment notficiation sheet
     const newValues = [new Date().toISOString(), 'jomeno testing'];
-    const result = spreadsheet.insert("1JUyYCV9cn2icAvSPuLHP-Ju7OEJ5p5p07kAWJPs9x58", "Pay Notifications", newValues);
+    const result = await spreadsheet.insert("1JUyYCV9cn2icAvSPuLHP-Ju7OEJ5p5p07kAWJPs9x58", "Pay Notifications", newValues);
     context.log(`After spreadsheet insert`, result);
-    return { body: `Hello, ${process.env.CLIENT_EMAIL}!` };
+    return { body: `ok` };
 };
 
 app.http('Payments', {
