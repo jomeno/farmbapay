@@ -1,6 +1,16 @@
 import 'dotenv/config'
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
-import spreadsheet from "../lib/spreadsheet";
+//import spreadsheet from "../lib/spreadsheet";
+import NodeRSA from 'node-rsa';
+
+function decrypt(encryptedData, privateKey){
+  const rsa = new NodeRSA(privateKey);
+  rsa.setOptions({ encryptionScheme: { scheme: "pkcs1", padding: 1 } });
+  const decryptedData = rsa.decrypt(encryptedData, "utf8");
+  return {
+    data: JSON.parse(decryptedData)
+  };
+}
 
 export async function Payments(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http functional processed request for url "${request.url}"`);
@@ -12,14 +22,17 @@ export async function Payments(request: HttpRequest, context: InvocationContext)
         encryptedData,
         created: new Date().toString()
     };
+    const merchantPrivateKey = process.env.OPAY_MERCHANT_PRIVATE_KEY.replace(/\\n/g, '\n');
+    const { data } = decrypt(encryptedData, merchantPrivateKey);
+    context.log('Decrypted data:', data);
 
     // Inserting into mongo db
     //await insert("paynotifications", doc);
 
     // Insert into payment notficiation sheet
-    const newValues = [new Date().toISOString(), 'jomeno testing'];
-    const result = await spreadsheet.insert("1JUyYCV9cn2icAvSPuLHP-Ju7OEJ5p5p07kAWJPs9x58", "Pay Notifications", newValues);
-    context.log(`After spreadsheet insert`, result);
+    //const newValues = [new Date().toISOString(), 'jomeno testing'];
+    //const result = await spreadsheet.insert("1JUyYCV9cn2icAvSPuLHP-Ju7OEJ5p5p07kAWJPs9x58", "Pay Notifications", newValues);
+
     return { body: `ok` };
 };
 
