@@ -7,7 +7,7 @@ const insert = (spreadsheetId: string, sheetRange:string = 'Sheet1', sheetValues
         const client = getGoogleClient()
 
         //try{
-            client.authorize().then(async () => {
+            client.authorize().then(() => {
                 const sheetApi = google.sheets({version: 'v4', auth: client})
                 //const spreadsheetId = '1Qk0-nXR-eZDSQiKHONx_DCWtsTJTlj8a7ZH9AuB555A'
                 //const sheetRange = 'Sheet1';
@@ -15,7 +15,7 @@ const insert = (spreadsheetId: string, sheetRange:string = 'Sheet1', sheetValues
                 const requestBody = { values };
                 const valueInputOption = 'RAW';
 
-                await sheetApi.spreadsheets.values.append({
+                sheetApi.spreadsheets.values.append({
                     spreadsheetId,
                     range: sheetRange,
                     valueInputOption,
