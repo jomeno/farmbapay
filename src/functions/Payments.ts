@@ -3,18 +3,18 @@ import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/fu
 import { insert } from '../lib/database';
 //import spreadsheet from "../lib/spreadsheet";
 //import NodeRSA from 'node-rsa';
-const NodeRSA = require('node-rsa');
+//const NodeRSA = require('node-rsa');
 
-function decrypt(encryptedData, privateKey){
-  //const rsa = new NodeRSA(privateKey, "private", { encryptionScheme:"pkcs1", padding: 1 });
-  const rsa = new NodeRSA(privateKey, "private", { encryptionScheme:"pkcs1", padding: 1 });
-  //rsa.setOptions({ encryptionScheme: { scheme: "pkcs1", padding: 1 } });
-  //rsa.setOptions({ environment:"browser" });
-  const decryptedData = rsa.decrypt(encryptedData, "utf8");
-  return {
-    data: JSON.parse(decryptedData)
-  };
-}
+// function decrypt(encryptedData, privateKey){
+//   //const rsa = new NodeRSA(privateKey, "private", { encryptionScheme:"pkcs1", padding: 1 });
+//   const rsa = new NodeRSA(privateKey, "private", { encryptionScheme:"pkcs1", padding: 1 });
+//   //rsa.setOptions({ encryptionScheme: { scheme: "pkcs1", padding: 1 } });
+//   //rsa.setOptions({ environment:"browser" });
+//   const decryptedData = rsa.decrypt(encryptedData, "utf8");
+//   return {
+//     data: JSON.parse(decryptedData)
+//   };
+// }
 
 export async function Payments(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http functional processed request for url "${request.url}"`);
